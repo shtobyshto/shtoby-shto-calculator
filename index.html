@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e8ecf1">
+  <title>Штобы што — калькулятор автоматизации</title>
+  <meta name="description" content="Рассчитайте экономию рабочих часов при автоматизации процесса. Сравните трудозатраты до и после по каждой роли и оцените высвобожденный ресурс команды.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23365ee8'/%3E%3Cpath d='M9 10h14M9 16h8M9 22h4' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#calculator">К калькулятору</a>
+  <div class="page">
+    <header class="site-header">
+      <a href="https://t.me/shtoby_shto" class="brand" target="_blank" rel="noopener noreferrer">Штобы што</a>
+      <span class="header-description">Калькулятор автоматизации</span>
+      <a class="method-link" href="#method">Как считаем <span aria-hidden="true">?</span></a>
+    </header>
+
+    <main id="calculator">
+      <div class="intro">
+        <div><h1>Сколько времени<br class="mobile-break"> вернет автоматизация?</h1><p class="lead">Сравните трудозатраты команды до и после изменений</p></div>
+      </div>
+
+      <section class="card process-card" aria-labelledby="process-heading">
+        <div class="section-heading"><div class="heading-group"><span class="section-number">01</span><h2 id="process-heading">Что автоматизируем</h2></div><span class="optional-label">Описание процесса</span></div>
+        <label class="field-label" for="process-name">Процесс или действие</label>
+        <input id="process-name" class="process-input" type="text" value="Оформление отпуска" maxlength="300">
+        <details class="process-details"><summary>Опишите текущую проблему процесса, предполагаемое решение и риски, если оставить процесс как есть <span class="chevron" aria-hidden="true"></span></summary><div class="description-grid">
+          <div><label class="field-label" for="pain">Что не устраивает сейчас</label><textarea id="pain" rows="6"></textarea></div>
+          <div><label class="field-label" for="solution">Предлагаемое решение</label><textarea id="solution" rows="6"></textarea></div>
+          <div><label class="field-label" for="risks">Иные эффекты и риски текущего процесса</label><textarea id="risks" rows="5"></textarea></div>
+          <div><label class="field-label" for="comments">Комментарии</label><textarea id="comments" rows="5" placeholder="Контекст исследования, допущения или ожидаемые эффекты"></textarea></div>
+        </div></details>
+      </section>
+
+      <div class="workspace">
+        <section class="card inputs-card" aria-labelledby="team-heading">
+          <div class="section-heading"><div class="heading-group"><span class="section-number">02</span><h2 id="team-heading">Участники процесса</h2></div><button class="text-button" id="restore" type="button" title="Восстановить все данные примера из ТЗ"><span aria-hidden="true">↺</span> Вернуть пример</button></div>
+          <p class="section-note">Укажите состав команды, которая участвует в описанном процессе, и часы на одного сотрудника в год ДО автоматизации и ПОСЛЕ автоматизации процесса</p>
+          <div class="role-table" role="table" aria-label="Участники и трудозатраты в год">
+            <div class="table-head" role="row"><span role="columnheader">Роль</span><span role="columnheader">Всего участников процесса</span><span role="columnheader">ДО автоматизации,<span class="column-detail">часов / 1 чел</span></span><span role="columnheader">ПОСЛЕ автоматизации,<span class="column-detail">часов / 1 чел</span></span><span role="columnheader" class="sr-only">Удалить</span></div>
+            <div id="roles" role="rowgroup"></div>
+          </div>
+          <button class="add-button" id="add-role" type="button"><span aria-hidden="true">+</span> Добавить роль</button>
+          <div class="team-total"><span>Всего участников в описанном процессе за 1 год:</span><strong id="people-total">2 925 <small>чел.</small></strong></div>
+          <p class="input-error" id="input-error" role="status" hidden></p>
+          <div class="comparison" aria-labelledby="comparison-title">
+            <div class="comparison-heading"><h3 id="comparison-title">Трудозатраты всей команды</h3><span>часов в год</span></div>
+            <div class="bar-row"><span>До</span><div class="bar-track"><div id="before-bar" class="bar before-bar"></div></div><strong id="before-total">40 100</strong></div>
+            <div class="bar-row"><span>После</span><div class="bar-track"><div id="after-bar" class="bar after-bar"></div></div><strong id="after-total">4 905</strong></div>
+          </div>
+        </section>
+
+        <aside class="card result-card" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
+          <div class="result-top"><span class="result-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span><span>ЭФФЕКТ АВТОМАТИЗАЦИИ</span></div>
+          <h2 id="result-heading">Высвобожденное время</h2>
+          <div class="hero-number" id="saved-hours">35 195</div>
+          <p class="hero-unit" id="saved-unit">часов в год</p>
+          <div class="percent-pill" id="percent-result">На 87,8% меньше рутины</div>
+          <div class="result-divider"></div>
+          <div class="fte-result"><div><span>Эквивалент полной занятости</span><strong><span id="fte-value">17,85</span> <small>FTE</small></strong></div><span class="fte-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3"/><path d="M5 20v-2a7 7 0 0 1 14 0v2"/></svg></span></div>
+          <p class="fte-note" id="fte-note">Ресурс команды для других задач.<br>Не означает сокращение штата.</p>
+          <details class="effect-details"><summary>Подробнее <span class="chevron" aria-hidden="true"></span></summary><div class="effect-copy">
+            <p>Автоматизация, сберегающая рабочие часы — это большой ресурс.</p>
+            <p>В разговоре с бизнесом и HR-директорами этот показатель важно перевести из абстрактного времени в конкретные, измеримые эффекты для сотрудников и организации.</p>
+            <h3>Эквивалент в полной занятости (FTE)</h3>
+            <p>Смысловой эффект: это не означает автоматическое увольнение. Это значит, что у вас появился виртуальный «отдел» из специалистов, готовых к выполнению стратегических задач без расширения штата (без затрат на наем, адаптацию, рабочие места и ДМС).</p>
+            <h3>Снижение выгорания и текучести кадров (ретеншен &amp; веллбеинг)</h3>
+            <p>Обычно автоматизируют самую нудную, повторяющуюся и рутинную работу (копирование данных, сверка отчетов, ручная отправка писем).</p>
+            <p>Эффект «чистый фокус»: сотрудники избавлены от рутины, которая чаще всего и является причиной профессионального выгорания.</p>
+            <p>Метрика: снижение коэффициента текучести кадров на критических участках. Удержание одного опытного сотрудника экономит компании от 3 до 10 его окладов (стоимость поиска и обучения замены).</p>
+            <h3>Перераспределение на интеллектуальные и маржинальные задачи (upskilling)</h3>
+            <p>Освобожденное время — это инвестиция в развитие бизнеса руками уже лояльных сотрудников.</p>
+            <h3>Повышение скорости процессов (time-to-market &amp; SLA)</h3>
+            <p>Там, где человек тратит часы, автоматическая система тратит секунды или минуты. Для внутренних сотрудников это означает исчезновение «бутылочных горлышек».</p>
+            <p>Эффект: скорость согласования документов, выдачи доступов, обработки внутренних заявок (в IT, HR, бухгалтерию) вырастает в разы.</p>
+            <p>Результат для сотрудников: меньше стресса из-за ожидания коллег, исчезает внутренний бюрократический хаос, повышается общий индекс удовлетворенности внутренней экосистемой (eNPS).</p>
+            <h3>И, наконец, избегание рисков, указанных в поле «Иные эффекты или риски текущего процесса»</h3>
+            <p>Избегание финансовых, юридических и репутационных рисков.</p>
+          </div></details>
+          <div class="result-formula"><span id="equation">40 100 − 4 905 = 35 195 ч</span><small>Трудозатраты до − трудозатраты после</small></div>
+        </aside>
+      </div>
+
+
+
+      <div class="download-section">
+        <button type="button" id="download-excel" class="download-button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5"/></svg><span>Скачать мой расчет в excel</span></button>
+        <p id="download-status" class="download-status" role="status"></p>
+      </div>
+      <section class="method-section" id="method" aria-labelledby="method-heading">
+        <details><summary><span><span class="help-icon" aria-hidden="true">=</span><span id="method-heading">Как считаем</span></span><span class="chevron" aria-hidden="true"></span></summary><div class="method-content">
+          <h3 class="calendar-title">Справочные данные на 2027 год</h3><div class="calendar-stats"><div><strong>12</strong><span>месяцев</span></div><div><strong>52</strong><span>недели</span></div><div><strong>247</strong><span>рабочих дней</span></div><div><strong>1 972</strong><span>часа в год</span></div><div><strong>40</strong><span>часов в неделю</span></div></div>
+
+          <a class="source-link" href="https://docs.google.com/spreadsheets/d/1fkXjF8HZROKXTCzNd-WwST2oFwC5pKs5PCzyS8MUsi8/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Открыть пример от Штобы Што в google-таблице онлайн</a>
+        </div></details>
+      </section>
+    </main>
+    <footer><a class="footer-brand" href="https://t.me/shtoby_shto" target="_blank" rel="noopener noreferrer">@shtoby_shto</a><p>Все расчеты выполняются в браузере.<br>Данные не сохраняются после обновления страницы</p><a class="thanks-link" href="https://pay.cloudtips.ru/p/0b183bcb" target="_blank" rel="noopener noreferrer">Сказать спасибо за калькулятор</a></footer>
+  </div>
+  <noscript><div class="noscript">Для работы калькулятора включите JavaScript в браузере.</div></noscript>
+</body>
+</html>
