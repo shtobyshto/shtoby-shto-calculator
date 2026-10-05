@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#e8ecf1">
-  <title>Штобы што — калькулятор автоматизации</title>
-  <meta name="description" content="Рассчитайте экономию рабочих часов при автоматизации процесса. Сравните трудозатраты до и после по каждой роли и оцените высвобожденный ресурс команды.">
+  <title>Штобы што — готовность процесса к ИИ и калькулятор автоматизации</title>
+  <meta name="description" content="Ответьте на 5 вопросов о готовности процесса к ИИ, затем рассчитайте экономию рабочих часов при автоматизации.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23365ee8'/%3E%3Cpath d='M9 10h14M9 16h8M9 22h4' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.js"></script>
@@ -16,13 +16,44 @@
     <header class="site-header">
       <a href="https://t.me/shtoby_shto" class="brand" target="_blank" rel="noopener noreferrer">Штобы што</a>
       <span class="header-description">Калькулятор автоматизации</span>
-      <a class="method-link" href="#method">Как считаем <span aria-hidden="true">?</span></a>
+      <a class="method-link" href="#method" hidden>Как считаем <span aria-hidden="true">?</span></a>
     </header>
 
     <main id="calculator">
-      <div class="intro">
-        <div><h1>Сколько времени<br class="mobile-break"> вернет автоматизация?</h1><p class="lead">Сравните трудозатраты команды до и после изменений</p></div>
-      </div>
+      <section class="readiness-section" aria-labelledby="readiness-heading">
+        <div class="intro quiz-intro"><div>
+          <h1 id="readiness-heading">Готов ли ваш процесс к внедрению ИИ?</h1>
+          <p class="lead">Ответьте на 5 вопросов за 2 минуты и узнайте, принесет ли автоматизация пользу или вы зря потратите бюджет.</p>
+          <div class="quiz-description"><p>Все опросы являются обязательными.</p><p>Сайт данные не собирает и не хранит.</p><p>Предложения и вопрос отправляйте Насте Ру <a href="https://t.me/shtoby_shto" target="_blank" rel="noopener noreferrer">@shtoby_shto</a></p></div>
+        </div></div>
+        <form id="readiness-form" class="card quiz-card" novalidate>
+          <div id="quiz-questions"></div>
+          <p id="quiz-error" class="input-error" role="alert" hidden>Ответьте на все вопросы</p>
+          <button class="primary-button" type="submit">Показать результаты</button>
+        </form>
+        <section id="quiz-result" class="card quiz-result" aria-labelledby="quiz-result-title" tabindex="-1" hidden>
+          <h2 id="quiz-result-title"></h2>
+          <div id="quiz-result-copy" class="quiz-result-copy"></div>
+          <div id="preparation-plan" hidden>
+            <h3>ИИ пока не принесет вам пользы (и это нормально!)</h3>
+            <p>В опроснике ваш процесс набрал <strong id="readiness-score"></strong> из 25.</p>
+            <p>Внедрять искусственный интеллект прямо сейчас – высокий риск зря потратить ваши бюджет и время.</p>
+            <h4>Почему так?</h4>
+            <p>ИИ эффективен только там, где процессы уже оцифрованы, стабильны, а цена случайной ошибки не критична для бизнеса.</p>
+            <p>Судя по вашим ответам, ваш процесс сначала нужно подготовить.</p>
+            <h4>Вот примерный пошаговый план, что вам можно сделать прямо сейчас:</h4>
+            <ul>
+              <li><strong>Оцифруйте данные:</strong> перенесите устные договоренности и бумажные документы в CRM или базы данных.</li>
+              <li><strong>Зафиксируйте регламент:</strong> опишите пошаговую логику задачи, чтобы правила не менялись каждую неделю.</li>
+              <li><strong>Снизьте риски:</strong> выделите безопасный участок процесса, где ошибка алгоритма не приведет к штрафам</li>
+            </ul>
+            <div class="quiz-actions"><a class="primary-button" href="https://t.me/shtoby_shto" target="_blank" rel="noopener noreferrer">Разобрать процесс на бесплатной консультации с Настей Ру @shtoby_shto</a><button class="secondary-button" type="button" data-restart-quiz>Пройти тест заново для другого процесса</button></div>
+          </div>
+          <div id="positive-actions" class="quiz-actions" hidden><a class="primary-button" href="#process-heading">Рассчитать эффект автоматизации</a><button class="secondary-button" type="button" data-restart-quiz>Пройти тест заново для другого процесса</button></div>
+        </section>
+      </section>
+
+      <div id="calculation-sections" hidden inert aria-disabled="true">
 
       <section class="card process-card" aria-labelledby="process-heading">
         <div class="section-heading"><div class="heading-group"><span class="section-number">01</span><h2 id="process-heading">Что автоматизируем</h2></div><span class="optional-label">Описание процесса</span></div>
@@ -68,6 +99,7 @@
             <p>В разговоре с бизнесом и HR-директорами этот показатель важно перевести из абстрактного времени в конкретные, измеримые эффекты для сотрудников и организации.</p>
             <h3>Эквивалент в полной занятости (FTE)</h3>
             <p>Смысловой эффект: это не означает автоматическое увольнение. Это значит, что у вас появился виртуальный «отдел» из специалистов, готовых к выполнению стратегических задач без расширения штата (без затрат на наем, адаптацию, рабочие места и ДМС).</p>
+            <p>Однако если вам необходимо рассчитать реальную стоимость FTE, то в рунете есть специализированные онлайн-калькуляторы, которые позволяют рассчитать полную стоимость сотрудника для компании с учетом оклада «на руки», НДФЛ, страховых взносов и накладных расходов. Пример: <a href="https://productlab.ru/calculator/employee-cost" target="_blank" rel="noopener noreferrer">калькулятор стоимости сотрудника от Product Lab</a></p>
             <h3>Снижение выгорания и текучести кадров (ретеншен &amp; веллбеинг)</h3>
             <p>Обычно автоматизируют самую нудную, повторяющуюся и рутинную работу (копирование данных, сверка отчетов, ручная отправка писем).</p>
             <p>Эффект «чистый фокус»: сотрудники избавлены от рутины, которая чаще всего и является причиной профессионального выгорания.</p>
@@ -98,6 +130,7 @@
           <a class="source-link" href="https://docs.google.com/spreadsheets/d/1fkXjF8HZROKXTCzNd-WwST2oFwC5pKs5PCzyS8MUsi8/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Открыть пример от Штобы Што в google-таблице онлайн</a>
         </div></details>
       </section>
+      </div>
     </main>
     <footer><a class="footer-brand" href="https://t.me/shtoby_shto" target="_blank" rel="noopener noreferrer">@shtoby_shto</a><p>Все расчеты выполняются в браузере.<br>Данные не сохраняются после обновления страницы</p><a class="thanks-link" href="https://pay.cloudtips.ru/p/0b183bcb" target="_blank" rel="noopener noreferrer">Сказать спасибо за калькулятор</a></footer>
   </div>
