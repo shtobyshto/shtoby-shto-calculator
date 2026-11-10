@@ -8,14 +8,7 @@ const percentFormat=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1});
 const format=value=>numberFormat.format(value);
 let nextId=0;
 let roles=[];
-const isCalculatorUnlocked=initializeReadiness(()=>{
-  roles=[createRole({name:'Участник процесса',count:'1',before:'0',after:'0'})];
-  Object.keys(EXAMPLE_CONTEXT).forEach(id=>{document.getElementById(id).value='';});
-  document.getElementById('download-status').textContent='';
-  document.querySelector('#method details').open=false;
-  document.querySelector('.effect-details').open=false;
-  renderRoles();
-});
+initializeReadiness();
 
 function createRole(data) {return {...data,id:++nextId};}
 function createCell(row,field,label,numeric=false) {
@@ -68,9 +61,8 @@ $('#roles').addEventListener('input',event=>{const input=event.target;if(!(input
 $('#roles').addEventListener('click',event=>{const button=event.target.closest('[data-remove]');if(!button||roles.length===1)return;const index=roles.findIndex(row=>row.id===Number(button.dataset.remove));roles.splice(index,1);renderRoles();$(`#name-${roles[Math.min(index,roles.length-1)].id}`).focus();});
 $('#add-role').addEventListener('click',()=>{const row=createRole({name:'Новая роль',count:'1',before:'0',after:'0'});roles.push(row);renderRoles();const input=$(`#name-${row.id}`);input.focus();input.select();});
 $('#restore').addEventListener('click',restoreExample);
-$('.method-link').addEventListener('click',event=>{if(!isCalculatorUnlocked()){event.preventDefault();return;}$('#automation-section').open=true;$('#method details').open=true;});
+$('.method-link').addEventListener('click',()=>{$('#automation-section').open=true;$('#method details').open=true;});
 $('#download-excel').addEventListener('click',async()=>{
-  if(!isCalculatorUnlocked())return;
   const result=updateResults(),status=$('#download-status'),button=$('#download-excel');
   status.classList.remove('error');
   if(!result.valid){status.textContent='Исправьте данные участников перед скачиванием: '+result.errors[0].message;status.classList.add('error');return;}
@@ -93,7 +85,6 @@ if(context?.registerTool){
     inputSchema:{type:'object',properties:{roles:{type:'array',minItems:1,items:{type:'object',properties:{name:{type:'string',minLength:1,maxLength:100},count:{type:'integer',minimum:0},before:{type:'number',minimum:0},after:{type:'number',minimum:0}},required:['name','count','before','after'],additionalProperties:false}}},required:['roles'],additionalProperties:false},
     annotations:{readOnlyHint:false,untrustedContentHint:false},
     execute(input){
-      if(!isCalculatorUnlocked())throw new Error('Сначала пройдите опрос о готовности процесса к ИИ.');
       if(!input||!Array.isArray(input.roles)||Object.keys(input).some(key=>key!=='roles')) throw new Error('Ожидается список ролей.');
       const candidates=input.roles.map(row=>{
         if(!row||typeof row.name!=='string'||row.name.length>100||['count','before','after'].some(key=>typeof row[key]!=='number')||Object.keys(row).some(key=>!['name','count','before','after'].includes(key))) throw new Error('Некорректные поля роли.');

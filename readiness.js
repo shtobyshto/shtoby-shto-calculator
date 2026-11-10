@@ -1,19 +1,10 @@
 import {QUESTIONS,assessReadiness} from './readiness-model.js';
 
-export function initializeReadiness(onRestart) {
+export function initializeReadiness() {
   const form=document.getElementById('readiness-form');
   const questions=document.getElementById('quiz-questions');
   const result=document.getElementById('quiz-result');
-  const calculator=document.getElementById('calculation-sections');
-  const methodLink=document.querySelector('.method-link');
-  let unlocked=false;
-  const gate=(visible,enabled)=>{
-    unlocked=enabled;calculator.hidden=!visible;calculator.inert=!enabled;
-    document.getElementById('calculator-gate-note').hidden=visible;
-    calculator.classList.toggle('is-locked',!enabled);
-    calculator.setAttribute('aria-disabled',String(!enabled));methodLink.hidden=!enabled;
-  };
-  const clearResult=()=>{result.hidden=true;gate(false,false);};
+  const clearResult=()=>{result.hidden=true;};
   QUESTIONS.forEach((question,i)=>{
     const group=document.createElement('fieldset');group.className='quiz-question';group.id=`question-${i+1}`;
     const legend=document.createElement('legend');legend.textContent=`Вопрос ${i+1}. ${question.title}`;group.append(legend);
@@ -48,7 +39,7 @@ export function initializeReadiness(onRestart) {
     document.getElementById('preparation-plan').hidden=assessment.unlocked;
     document.getElementById('positive-actions').hidden=!assessment.unlocked;
     document.getElementById('readiness-score').textContent=assessment.unlocked?'':String(assessment.score);
-    result.dataset.tier=assessment.tier;result.hidden=false;gate(true,assessment.unlocked);
+    result.dataset.tier=assessment.tier;result.hidden=false;
     result.focus();result.scrollIntoView({block:'start',behavior:'auto'});
   });
   form.addEventListener('change',event=>{
@@ -58,11 +49,8 @@ export function initializeReadiness(onRestart) {
   });
   document.querySelectorAll('[data-restart-quiz]').forEach(button=>button.addEventListener('click',()=>{
     document.getElementById('survey-section').open=true;
-    document.getElementById('automation-section').open=false;
-    form.reset();groups.forEach(group=>markMissing(group,false));document.getElementById('quiz-error').hidden=true;clearResult();onRestart();
-    document.querySelector('.process-details').open=false;groups[0].querySelector('input').focus();document.getElementById('readiness-heading').scrollIntoView({block:'start',behavior:'auto'});
+    form.reset();groups.forEach(group=>markMissing(group,false));document.getElementById('quiz-error').hidden=true;clearResult();
+    groups[0].querySelector('input').focus();document.getElementById('readiness-heading').scrollIntoView({block:'start',behavior:'auto'});
   }));
   document.querySelector('#positive-actions a').addEventListener('click',()=>{document.getElementById('automation-section').open=true;});
-  gate(false,false);
-  return ()=>unlocked;
 }

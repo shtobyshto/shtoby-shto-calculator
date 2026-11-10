@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#e8ecf1">
   <title>Штобы што — готовность процесса к ИИ и калькулятор автоматизации</title>
-  <meta name="description" content="Ответьте на 5 вопросов о готовности процесса к ИИ, затем рассчитайте экономию рабочих часов при автоматизации.">
+  <meta name="description" content="Рассчитайте экономию рабочих часов при автоматизации или пройдите опрос о готовности процесса к ИИ.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23365ee8'/%3E%3Cpath d='M9 10h14M9 16h8M9 22h4' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.js"></script>
@@ -16,7 +16,7 @@
     <header class="site-header">
       <a href="https://t.me/shtoby_shto" class="brand" target="_blank" rel="noopener noreferrer">Штобы што</a>
       <span class="header-description">Калькулятор автоматизации</span>
-      <a class="method-link" href="#method" hidden>Как считаем <span aria-hidden="true">?</span></a>
+      <a class="method-link" href="#method">Как считаем <span aria-hidden="true">?</span></a>
     </header>
 
     <main id="calculator">
@@ -57,8 +57,7 @@
 
       <details class="main-section" id="automation-section">
       <summary class="main-section-heading"><h2>Калькулятор автоматизации</h2><span class="chevron" aria-hidden="true"></span></summary>
-      <p id="calculator-gate-note" class="section-note">Сначала ответьте на вопросы опроса и нажмите «Показать результаты».</p>
-      <div id="calculation-sections" hidden inert aria-disabled="true">
+      <div id="calculation-sections">
 
       <section class="card process-card" aria-labelledby="process-heading">
         <div class="section-heading"><div class="heading-group"><span class="section-number">01</span><h2 id="process-heading">Что автоматизируем</h2></div><span class="optional-label">Описание процесса</span></div>
