@@ -9,6 +9,7 @@ export function initializeReadiness(onRestart) {
   let unlocked=false;
   const gate=(visible,enabled)=>{
     unlocked=enabled;calculator.hidden=!visible;calculator.inert=!enabled;
+    document.getElementById('calculator-gate-note').hidden=visible;
     calculator.classList.toggle('is-locked',!enabled);
     calculator.setAttribute('aria-disabled',String(!enabled));methodLink.hidden=!enabled;
   };
@@ -56,9 +57,12 @@ export function initializeReadiness(onRestart) {
     clearResult();
   });
   document.querySelectorAll('[data-restart-quiz]').forEach(button=>button.addEventListener('click',()=>{
+    document.getElementById('survey-section').open=true;
+    document.getElementById('automation-section').open=false;
     form.reset();groups.forEach(group=>markMissing(group,false));document.getElementById('quiz-error').hidden=true;clearResult();onRestart();
     document.querySelector('.process-details').open=false;groups[0].querySelector('input').focus();document.getElementById('readiness-heading').scrollIntoView({block:'start',behavior:'auto'});
   }));
+  document.querySelector('#positive-actions a').addEventListener('click',()=>{document.getElementById('automation-section').open=true;});
   gate(false,false);
   return ()=>unlocked;
 }

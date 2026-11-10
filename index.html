@@ -20,9 +20,10 @@
     </header>
 
     <main id="calculator">
-      <section class="readiness-section" aria-labelledby="readiness-heading">
+      <details class="main-section readiness-section" id="survey-section">
+        <summary class="main-section-heading"><h1 id="readiness-heading">Опрос «Готов ли ваш процесс к внедрению ИИ?»</h1><span class="chevron" aria-hidden="true"></span></summary>
+        <div class="main-section-content">
         <div class="intro quiz-intro"><div>
-          <h1 id="readiness-heading">Готов ли ваш процесс к внедрению ИИ?</h1>
           <p class="lead">Ответьте на 5 вопросов за 2 минуты и узнайте, принесет ли автоматизация пользу или вы зря потратите бюджет.</p>
           <div class="quiz-description"><p>Все опросы являются обязательными.</p><p>Сайт данные не собирает и не хранит.</p><p>Предложения и вопросы отправляйте Насте Ру <a href="https://t.me/shtoby_shto" target="_blank" rel="noopener noreferrer">@shtoby_shto</a></p></div>
         </div></div>
@@ -51,8 +52,12 @@
           </div>
           <div id="positive-actions" class="quiz-actions" hidden><a class="primary-button" href="#process-heading">Рассчитать эффект автоматизации</a><button class="secondary-button" type="button" data-restart-quiz>Пройти тест заново для другого процесса</button></div>
         </section>
-      </section>
+        </div>
+      </details>
 
+      <details class="main-section" id="automation-section">
+      <summary class="main-section-heading"><h2>Калькулятор автоматизации</h2><span class="chevron" aria-hidden="true"></span></summary>
+      <p id="calculator-gate-note" class="section-note">Сначала ответьте на вопросы опроса и нажмите «Показать результаты».</p>
       <div id="calculation-sections" hidden inert aria-disabled="true">
 
       <section class="card process-card" aria-labelledby="process-heading">
@@ -131,6 +136,7 @@
         </div></details>
       </section>
       </div>
+      </details>
     </main>
     <footer><a class="footer-brand" href="https://t.me/shtoby_shto" target="_blank" rel="noopener noreferrer">@shtoby_shto</a><p>Все расчеты выполняются в браузере.<br>Данные не сохраняются после обновления страницы</p><a class="thanks-link" href="https://pay.cloudtips.ru/p/0b183bcb" target="_blank" rel="noopener noreferrer">Сказать спасибо за калькулятор</a></footer>
   </div>

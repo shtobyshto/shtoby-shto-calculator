@@ -48,3 +48,12 @@
 .workspace .effect-copy{columns:auto}.workspace .effect-details{margin-top:18px}
 .workspace .fte-result{max-width:600px}.workspace .fte-note{margin-top:15px}
 @media(max-width:580px){.quiz-card,.quiz-result{padding:24px 20px;border-radius:20px}.quiz-intro{margin-top:30px}.quiz-intro .lead{max-width:none}.quiz-question legend{font-size:.9375rem}.quiz-option{padding:14px 12px;gap:11px;font-size:.875rem}.quiz-question+ .quiz-question{margin-top:26px;padding-top:24px}.quiz-result h2{font-size:1.125rem}.quiz-result-copy,.quiz-result p,.quiz-result li{font-size:.875rem}.quiz-actions{flex-direction:column;align-items:stretch}.primary-button,.secondary-button{font-size:.875rem;padding:13px 16px}.quiz-card>.primary-button{width:100%}.workspace{gap:24px}}
+/* Independent expandable survey and calculator sections. */
+.main-section{max-width:1020px;margin:30px auto;border:1px solid #f8faff88;border-radius:22px;background:var(--surface);box-shadow:var(--raised);padding:0 28px}
+.main-section>.main-section-heading{padding:25px 0;gap:24px;min-height:84px}
+.main-section-heading h1,.main-section-heading h2{font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.5;letter-spacing:-.4px;font-weight:800}
+.main-section[open]>.main-section-heading{border-bottom:1px solid var(--line)}
+.main-section-content{padding-bottom:28px}.main-section .quiz-intro{margin:20px 0 26px}.main-section .quiz-intro .lead{margin-top:0}
+.main-section #calculation-sections{margin-top:28px}.main-section #calculator-gate-note{margin:22px 0 28px}
+.main-section .quiz-result{margin-bottom:0}
+@media(max-width:580px){.main-section{padding:0 16px;margin:24px auto;border-radius:18px}.main-section>.main-section-heading{padding:20px 0;gap:16px}.main-section .quiz-card,.main-section .quiz-result{padding:20px 14px}.main-section .inputs-card{padding:20px 12px}.main-section .process-card{padding:20px 14px}}

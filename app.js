@@ -68,7 +68,7 @@ $('#roles').addEventListener('input',event=>{const input=event.target;if(!(input
 $('#roles').addEventListener('click',event=>{const button=event.target.closest('[data-remove]');if(!button||roles.length===1)return;const index=roles.findIndex(row=>row.id===Number(button.dataset.remove));roles.splice(index,1);renderRoles();$(`#name-${roles[Math.min(index,roles.length-1)].id}`).focus();});
 $('#add-role').addEventListener('click',()=>{const row=createRole({name:'Новая роль',count:'1',before:'0',after:'0'});roles.push(row);renderRoles();const input=$(`#name-${row.id}`);input.focus();input.select();});
 $('#restore').addEventListener('click',restoreExample);
-$('.method-link').addEventListener('click',event=>{if(!isCalculatorUnlocked()){event.preventDefault();return;}$('#method details').open=true;});
+$('.method-link').addEventListener('click',event=>{if(!isCalculatorUnlocked()){event.preventDefault();return;}$('#automation-section').open=true;$('#method details').open=true;});
 $('#download-excel').addEventListener('click',async()=>{
   if(!isCalculatorUnlocked())return;
   const result=updateResults(),status=$('#download-status'),button=$('#download-excel');
